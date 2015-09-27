@@ -1,11 +1,9 @@
 package ch.makery.address.repository;
 
-import java.util.function.Predicate;
 
 import ch.makery.address.model.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 public class PersonRepository {
 
