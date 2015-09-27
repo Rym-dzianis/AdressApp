@@ -6,6 +6,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
+import ch.makery.address.util.DateUtil;
 
 public class PersonOverviewController {
 	@FXML
@@ -48,6 +49,14 @@ public class PersonOverviewController {
 	private void initialize() {
 		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstName());
 		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastName());
+
+		// Clear person details.
+		showPersonDetails(null);
+
+		// Listen for selection changes and show the person details when
+		// changed.
+		personTable.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
 	}
 
 	/**
@@ -61,4 +70,33 @@ public class PersonOverviewController {
 		// Add observable list data to the table
 		personTable.setItems(mainApp.getPersonList());
 	}
+
+	/**
+	 * Fills all text fields to show details about the person. If the specified
+	 * person is null, all text fields are cleared.
+	 *
+	 * @param person
+	 *            the person or null
+	 */
+	private void showPersonDetails(Person person) {
+		if (person != null) {
+			// Fill the labels with info from the person object.
+			firstNameLabel.setText(person.getFirstName().getValue());
+			lastNameLabel.setText(person.getLastName().getValue());
+			streetLabel.setText(person.getStreet().getValue());
+			postalCodeLabel.setText(Integer.toString(person.getPostalCode().getValue()));
+			cityLabel.setText(person.getCity().getValue());
+			birthdayLabel.setText(DateUtil.format(person.getBirthday().getValue()));
+
+		} else {
+			// Person is null, remove all the text.
+			firstNameLabel.setText("");
+			lastNameLabel.setText("");
+			streetLabel.setText("");
+			postalCodeLabel.setText("");
+			cityLabel.setText("");
+			birthdayLabel.setText("");
+		}
+	}
+
 }
