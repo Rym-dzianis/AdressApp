@@ -42,7 +42,7 @@ public class MainApp extends Application {
         try {
             // Загружает корневой макет из fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("fxml/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Показать картинку, содержащую корневой макет.
@@ -62,7 +62,7 @@ public class MainApp extends Application {
         try {
             // Загрузка описание персоны
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
+            loader.setLocation(MainApp.class.getResource("fxml/PersonOverview.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Установка описание персоны в корневой макет.
@@ -96,7 +96,7 @@ public class MainApp extends Application {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
+            loader.setLocation(MainApp.class.getResource("fxml/PersonEditDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Создание диалога.
