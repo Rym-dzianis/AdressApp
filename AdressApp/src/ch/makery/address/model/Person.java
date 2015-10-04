@@ -22,7 +22,13 @@ public class Person {
      * Default constructor.
      */
     public Person() {
-        this(null, null);
+    	firstName = new SimpleStringProperty(null);
+        lastName = new SimpleStringProperty(null);
+        street = new SimpleStringProperty(null);
+        postalCode = new SimpleIntegerProperty();
+        city = new SimpleStringProperty(null);
+        birthday = new SimpleObjectProperty<LocalDate>(null);
+        phone = new SimpleStringProperty(null);
     }
 
     /**

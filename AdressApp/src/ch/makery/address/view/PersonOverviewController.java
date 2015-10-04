@@ -108,20 +108,55 @@ public class PersonOverviewController {
 	}
 
 	/**
-	 * Called when the user clicks on the delete button.
-	 * Вызывается когда пользователь кликает кнопку delete.
+	 * Called when the user clicks on the delete button. Вызывается когда
+	 * пользователь кликает кнопку delete.
 	 */
 	@FXML
 	private void handleDeletePerson() {
 		TableViewSelectionModel<Person> selectionModel = personTable.getSelectionModel();
 		// удаление не по индексу а по объекту !!!
 		boolean deletingResult = personTable.getItems().remove(selectionModel.getSelectedItem());
-		if (!deletingResult){
+		if (!deletingResult) {
 			// Nothing selected.
 			NotSelectedAlert alert = new NotSelectedAlert();
-	        alert.initOwner(mainApp.getPrimaryStage());
-	        alert.setContentText("Пожалуйста, веберите объект для удаления.");
-	        alert.showAndWait();
+			alert.initOwner(mainApp.getPrimaryStage());
+			alert.setContentText("Пожалуйста, веберите объект для удаления.");
+			alert.showAndWait();
+		}
+	}
+
+	/**
+	 * Called when the user clicks the new button. Opens a dialog to edit
+	 * details for a new person.
+	 */
+	@FXML
+	private void handleNewPerson() {
+		Person tempPerson = new Person();
+		boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+		if (okClicked) {
+			mainApp.getPersonList().add(tempPerson);
+		}
+	}
+
+	/**
+	 * Called when the user clicks the edit button. Opens a dialog to edit
+	 * details for the selected person.
+	 */
+	@FXML
+	private void handleEditPerson() {
+		Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+		if (selectedPerson != null) {
+			boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
+			if (okClicked) {
+				showPersonDetails(selectedPerson);
+			}
+
+		} else {
+			// Nothing selected.
+			NotSelectedAlert alert = new NotSelectedAlert();
+			alert.initOwner(mainApp.getPrimaryStage());
+			alert.setContentText("Пожалуйста, веберите объект для редактирования.");
+			alert.showAndWait();
 		}
 	}
 }

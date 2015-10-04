@@ -1,9 +1,10 @@
 package ch.makery.address.util;
 
+import static ch.makery.address.util.Constants.DATE_PATTERN;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import static ch.makery.address.util.Constants.DATE_PATTERN;
 
 /**
  * Helper functions for handling dates.

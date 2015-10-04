@@ -1,15 +1,9 @@
 package ch.makery.address.view;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -66,15 +60,16 @@ public class PersonEditDialogController {
 	 */
 	public void setPerson(Person person) {
 		this.person = person;
-
 		firstNameField.setText(person.getFirstName().getValue());
 		lastNameField.setText(person.getLastName().getValue());
 		streetField.setText(person.getStreet().getValue());
 		postalCodeField.setText(Integer.toString(person.getPostalCode().getValue()));
+		phoneField.setPromptText("XXXXXX");
 		cityField.setText(person.getCity().getValue());
 		birthdayField.setText(DateUtil.format(person.getBirthday().getValue()));
 		birthdayField.setPromptText("dd.mm.yyyy");
 		phoneField.setText(person.getPhone().getValue());
+		phoneField.setPromptText("+375...");
 	}
 
 	/**
@@ -95,10 +90,10 @@ public class PersonEditDialogController {
 			person.setFirstName(firstNameField.textProperty());
 			person.setLastName(lastNameField.textProperty());
 			person.setStreet(streetField.textProperty());
-			// переделано
+			//
 			person.setPostalCode(new SimpleIntegerProperty(Integer.parseInt(postalCodeField.getText())));
 			person.setCity(cityField.textProperty());
-			// переделано
+			//
 			person.setBirthday(new SimpleObjectProperty<LocalDate>(DateUtil.parse(birthdayField.getText())));
 			person.setPhone(phoneField.textProperty());
 
@@ -156,14 +151,17 @@ public class PersonEditDialogController {
 			}
 		}
 
+		if (phoneField.getText() == null || phoneField.getText().length() == 0) {
+			errorMessage += "Введите номер телефона!\n";
+		}
+
 		if (errorMessage.length() == 0) {
 			return true;
 		} else {
 			// Show the error message.
 			ErrorAlert alert = new ErrorAlert();
 			alert.initOwner(dialogStage);
-			alert.setTitle("Invalid Fields");
-			alert.setHeaderText("Please correct invalid fields");
+			alert.setHeaderText("Пожалуйста, введите правильные значения.");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
 			return false;

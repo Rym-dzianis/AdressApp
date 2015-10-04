@@ -14,15 +14,7 @@ public class PersonRepository {
 
 	private PersonRepository() {
 		// Add some sample data
-        personList.add(new Person("Денис", "Римашевский"));
-        personList.add(new Person("Виталий", "Филатенко"));
-        personList.add(new Person("Виталий", "Усеня"));
-        personList.add(new Person("Андрей", "Мусский"));
-        personList.add(new Person("Вячеслав", "Шаплыко"));
-        personList.add(new Person("Саша", "Грэй"));
-        personList.add(new Person("Анджелина", "Джоли"));
-        personList.add(new Person("Александр", "Юревич"));
-        personList.add(new Person("Димон", "Варг"));
+//        personList.add(new Person("Денис", "Римашевский"));
 	}
 
 	public static PersonRepository getInstance(){

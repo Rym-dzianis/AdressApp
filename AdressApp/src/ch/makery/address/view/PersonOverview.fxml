@@ -59,8 +59,8 @@
 						</GridPane>
 						<HBox layoutX="194.0" layoutY="262.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
 							<children>
-								<Button layoutX="194.0" layoutY="262.0" mnemonicParsing="false" text="Добавить" />
-								<Button layoutX="252.0" layoutY="262.0" mnemonicParsing="false" text="Редактировать" />
+								<Button layoutX="194.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleNewPerson" text="Добавить" />
+								<Button layoutX="252.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Редактировать" />
 								<Button layoutX="311.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Удалить" />
 							</children>
 							<opaqueInsets>
