@@ -10,13 +10,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Person {
-	private final StringProperty firstName;
-    private final StringProperty lastName;
-    private final StringProperty street;
-    private final IntegerProperty postalCode;
-    private final StringProperty city;
-    private final ObjectProperty<LocalDate> birthday;
-    private final StringProperty phone;
+	private StringProperty firstName;
+    private StringProperty lastName;
+    private StringProperty street;
+    private IntegerProperty postalCode;
+    private StringProperty city;
+    private ObjectProperty<LocalDate> birthday;
+    private StringProperty phone;
 
     /**
      * Default constructor.
@@ -47,28 +47,56 @@ public class Person {
 		return firstName;
 	}
 
+	public void setFirstName(StringProperty firstName) {
+		this.firstName = firstName;
+	}
+
 	public StringProperty getLastName() {
 		return lastName;
+	}
+
+	public void setLastName(StringProperty lastName) {
+		this.lastName = lastName;
 	}
 
 	public StringProperty getStreet() {
 		return street;
 	}
 
+	public void setStreet(StringProperty street) {
+		this.street = street;
+	}
+
 	public IntegerProperty getPostalCode() {
 		return postalCode;
+	}
+
+	public void setPostalCode(IntegerProperty postalCode) {
+		this.postalCode = postalCode;
 	}
 
 	public StringProperty getCity() {
 		return city;
 	}
 
+	public void setCity(StringProperty city) {
+		this.city = city;
+	}
+
 	public ObjectProperty<LocalDate> getBirthday() {
 		return birthday;
 	}
 
+	public void setBirthday(ObjectProperty<LocalDate> birthday) {
+		this.birthday = birthday;
+	}
+
 	public StringProperty getPhone() {
 		return phone;
+	}
+
+	public void setPhone(StringProperty phone) {
+		this.phone = phone;
 	}
 
 	/**

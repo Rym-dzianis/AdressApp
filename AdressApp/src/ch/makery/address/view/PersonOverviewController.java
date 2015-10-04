@@ -4,7 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import ch.makery.address.MainApp;
+import ch.makery.address.alerts.NotSelectedAlert;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 
@@ -44,6 +46,10 @@ public class PersonOverviewController {
 	/**
 	 * Initializes the controller class. This method is automatically called
 	 * after the fxml file has been loaded.
+	 *
+	 * Инициализация контроллера. Этот метод вызывается автоматически после
+	 * загрузки fxml.
+	 *
 	 */
 	@FXML
 	private void initialize() {
@@ -55,6 +61,8 @@ public class PersonOverviewController {
 
 		// Listen for selection changes and show the person details when
 		// changed.
+		// берем модель таблицы и выбранное значение, добавляем лисенер и
+		// скармливаем интерфейсу лисенера метод showPersonDetails
 		personTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
 	}
@@ -72,8 +80,7 @@ public class PersonOverviewController {
 	}
 
 	/**
-	 * Fills all text fields to show details about the person. If the specified
-	 * person is null, all text fields are cleared.
+	 * Заполнение полей персоны. Если передан null все поля будут стерты.
 	 *
 	 * @param person
 	 *            the person or null
@@ -87,7 +94,7 @@ public class PersonOverviewController {
 			postalCodeLabel.setText(Integer.toString(person.getPostalCode().getValue()));
 			cityLabel.setText(person.getCity().getValue());
 			birthdayLabel.setText(DateUtil.format(person.getBirthday().getValue()));
-
+			phoneLabel.setText(person.getPhone().getValue());
 		} else {
 			// Person is null, remove all the text.
 			firstNameLabel.setText("");
@@ -96,7 +103,25 @@ public class PersonOverviewController {
 			postalCodeLabel.setText("");
 			cityLabel.setText("");
 			birthdayLabel.setText("");
+			phoneLabel.setText("");
 		}
 	}
 
+	/**
+	 * Called when the user clicks on the delete button.
+	 * Вызывается когда пользователь кликает кнопку delete.
+	 */
+	@FXML
+	private void handleDeletePerson() {
+		TableViewSelectionModel<Person> selectionModel = personTable.getSelectionModel();
+		// удаление не по индексу а по объекту !!!
+		boolean deletingResult = personTable.getItems().remove(selectionModel.getSelectedItem());
+		if (!deletingResult){
+			// Nothing selected.
+			NotSelectedAlert alert = new NotSelectedAlert();
+	        alert.initOwner(mainApp.getPrimaryStage());
+	        alert.setContentText("Пожалуйста, веберите объект для удаления.");
+	        alert.showAndWait();
+		}
+	}
 }
