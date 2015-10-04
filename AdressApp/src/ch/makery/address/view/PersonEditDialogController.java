@@ -33,6 +33,7 @@ public class PersonEditDialogController {
 	private TextField phoneField;
 
 	private Stage dialogStage;
+
 	private Person person;
 	private boolean okClicked = false;
 
