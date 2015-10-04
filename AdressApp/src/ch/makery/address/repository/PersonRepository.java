@@ -13,8 +13,6 @@ public class PersonRepository {
     private static PersonRepository personRepository = new PersonRepository();
 
 	private PersonRepository() {
-		// Add some sample data
-//        personList.add(new Person("Денис", "Римашевский"));
 	}
 
 	public static PersonRepository getInstance(){

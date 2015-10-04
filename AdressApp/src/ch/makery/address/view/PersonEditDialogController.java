@@ -64,7 +64,7 @@ public class PersonEditDialogController {
 		lastNameField.setText(person.getLastName().getValue());
 		streetField.setText(person.getStreet().getValue());
 		postalCodeField.setText(Integer.toString(person.getPostalCode().getValue()));
-		phoneField.setPromptText("XXXXXX");
+		postalCodeField.setPromptText("XXXXXX");
 		cityField.setText(person.getCity().getValue());
 		birthdayField.setText(DateUtil.format(person.getBirthday().getValue()));
 		birthdayField.setPromptText("dd.mm.yyyy");
@@ -161,7 +161,7 @@ public class PersonEditDialogController {
 			// Show the error message.
 			ErrorAlert alert = new ErrorAlert();
 			alert.initOwner(dialogStage);
-			alert.setHeaderText("Пожалуйста, введите правильные значения.");
+			alert.setHeaderText("Пожалуйста, заполните форму.");
 			alert.setContentText(errorMessage);
 			alert.showAndWait();
 			return false;

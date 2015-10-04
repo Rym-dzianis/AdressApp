@@ -8,6 +8,7 @@ import javafx.scene.control.TableView.TableViewSelectionModel;
 import ch.makery.address.MainApp;
 import ch.makery.address.alerts.NotSelectedAlert;
 import ch.makery.address.model.Person;
+import ch.makery.address.repository.PersonRepository;
 import ch.makery.address.util.DateUtil;
 
 public class PersonOverviewController {
@@ -35,6 +36,7 @@ public class PersonOverviewController {
 
 	// Reference to the main application.
 	private MainApp mainApp;
+    private PersonRepository personRepository = PersonRepository.getInstance();
 
 	/**
 	 * The constructor. The constructor is called before the initialize()
@@ -74,9 +76,8 @@ public class PersonOverviewController {
 	 */
 	public void setMainApp(MainApp main) {
 		this.mainApp = main;
-
 		// Add observable list data to the table
-		personTable.setItems(mainApp.getPersonList());
+		personTable.setItems(personRepository.getPersonList());
 	}
 
 	/**
@@ -128,19 +129,21 @@ public class PersonOverviewController {
 	/**
 	 * Called when the user clicks the new button. Opens a dialog to edit
 	 * details for a new person.
+	 * Вызывается при клике. Открывает окно редактирования.
 	 */
 	@FXML
 	private void handleNewPerson() {
 		Person tempPerson = new Person();
 		boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
 		if (okClicked) {
-			mainApp.getPersonList().add(tempPerson);
+			personRepository.getPersonList().add(tempPerson);
 		}
 	}
 
 	/**
 	 * Called when the user clicks the edit button. Opens a dialog to edit
 	 * details for the selected person.
+	 * Вызывается при клике. Открывает окно редактирования.
 	 */
 	@FXML
 	private void handleEditPerson() {

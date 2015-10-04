@@ -3,12 +3,11 @@ package ch.makery.address;
 
 import java.io.IOException;
 
+import ch.makery.address.alerts.ErrorAlert;
 import ch.makery.address.model.Person;
-import ch.makery.address.repository.PersonRepository;
 import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -20,13 +19,8 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private PersonRepository personRepository;
 
-    /**
-     * Constructor
-     */
     public MainApp() {
-    	personRepository = PersonRepository.getInstance();
     }
 
     @Override
@@ -92,24 +86,10 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns the data as an observable list of Persons.
-     * @return
-     */
-    public ObservableList<Person> getPersonList() {
-        return personRepository.getPersonList();
-    }
-
-    public static void main(String[] args) {
-    	System.out.println("Started !!!");
-        launch(args);
-    }
-
-    /**
-     * Opens a dialog to edit details for the specified person. If the user
-     * clicks OK, the changes are saved into the provided person object and true
-     * is returned.
+     * Открывает окно редактирования деталей контакта. Если пользователь
+     * кликает ОК изменения сохраняются и возвращается true.
      *
-     * @param person the person object to be edited
+     * @param person изменяемый объект
      * @return true if the user clicked OK, false otherwise.
      */
     public boolean showPersonEditDialog(Person person) {
@@ -119,7 +99,7 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
-            // Create the dialog Stage.
+            // Создание диалога.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Редактирование новой записи.");
             dialogStage.initModality(Modality.WINDOW_MODAL);
@@ -127,19 +107,29 @@ public class MainApp extends Application {
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
+            // Инициализация контроллера и запись позьзователя.
             PersonEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setPerson(person);
 
-            // Show the dialog and wait until the user closes it
+            // Показать окно и ждать.
             dialogStage.showAndWait();
 
             return controller.isOkClicked();
-        } catch (IOException e) {
-        	// тут надо алерт
-            e.printStackTrace();
-            return false;
-        }
+		} catch (IOException e) {
+			ErrorAlert alert = new ErrorAlert();
+			alert.initOwner(primaryStage);
+			alert.setHeaderText("Ошибка при вызове редактора.");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+
+			e.printStackTrace();
+			return false;
+		}
+    }
+
+    public static void main(String[] args) {
+    	System.out.println("Started !!!");
+        launch(args);
     }
 }
