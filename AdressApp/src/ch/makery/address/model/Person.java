@@ -1,8 +1,11 @@
 package ch.makery.address.model;
 
 import java.time.LocalDate;
-import java.util.Objects;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import ch.makery.address.util.IntegerAdapter;
+import ch.makery.address.util.LocalDateAdapter;
+import ch.makery.address.util.StringAdapter;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -50,6 +53,7 @@ public class Person {
 		this.phone = new SimpleStringProperty("+375 ");
 	}
 
+	@XmlJavaTypeAdapter(StringAdapter.class)
 	public StringProperty getFirstName() {
 		return firstName;
 	}
@@ -58,6 +62,7 @@ public class Person {
 		this.firstName = firstName;
 	}
 
+	@XmlJavaTypeAdapter(StringAdapter.class)
 	public StringProperty getLastName() {
 		return lastName;
 	}
@@ -66,6 +71,7 @@ public class Person {
 		this.lastName = lastName;
 	}
 
+	@XmlJavaTypeAdapter(StringAdapter.class)
 	public StringProperty getStreet() {
 		return street;
 	}
@@ -74,6 +80,7 @@ public class Person {
 		this.street = street;
 	}
 
+	@XmlJavaTypeAdapter(IntegerAdapter.class)
 	public IntegerProperty getPostalCode() {
 		return postalCode;
 	}
@@ -82,6 +89,7 @@ public class Person {
 		this.postalCode = postalCode;
 	}
 
+	@XmlJavaTypeAdapter(StringAdapter.class)
 	public StringProperty getCity() {
 		return city;
 	}
@@ -90,6 +98,7 @@ public class Person {
 		this.city = city;
 	}
 
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public ObjectProperty<LocalDate> getBirthday() {
 		return birthday;
 	}
@@ -98,6 +107,7 @@ public class Person {
 		this.birthday = birthday;
 	}
 
+	@XmlJavaTypeAdapter(StringAdapter.class)
 	public StringProperty getPhone() {
 		return phone;
 	}
