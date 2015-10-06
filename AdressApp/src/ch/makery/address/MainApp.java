@@ -6,9 +6,11 @@ import ch.makery.address.alerts.ErrorAlert;
 import ch.makery.address.model.Person;
 import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
+import ch.makery.address.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -26,6 +28,10 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Адресная книга");
+
+		// Иконка окна.
+	    this.primaryStage.getIcons().add(new Image("file:resources/images/Address_Book_Alt_red.png"));
+
 		initRootLayout();
 		showPersonOverview();
 	}
@@ -44,6 +50,10 @@ public class MainApp extends Application {
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+
+			RootLayoutController controller = loader.getController();
+			controller.setMainApp(this);
+
 		} catch (IOException e) {
 			ErrorAlert alert = new ErrorAlert();
 			alert.initOwner(primaryStage);
@@ -103,10 +113,15 @@ public class MainApp extends Application {
 			dialogStage.initOwner(primaryStage);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
+
+			// Иконка окна.
+		    dialogStage.getIcons().add(new Image("file:resources/images/Address_Book_Alt_red.png"));
+
 			// Инициализация контроллера и запись позьзователя.
 			PersonEditDialogController personEditDialogController = loader.getController();
 			personEditDialogController.setDialogStage(dialogStage);
 			personEditDialogController.setPerson(person);
+
 			// Показать окно и ждать.
 			dialogStage.showAndWait();
 

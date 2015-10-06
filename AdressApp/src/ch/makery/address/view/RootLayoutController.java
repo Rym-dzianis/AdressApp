@@ -1,6 +1,7 @@
 package ch.makery.address.view;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -110,7 +111,7 @@ public class RootLayoutController {
      */
     @FXML
     private void handleFAQ() {
-    	System.out.println("About");
+    	System.out.println("FAQ");
     	Alert alert = new Alert(AlertType.INFORMATION);
     	alert.setTitle("Инструкция.");
     	alert.setHeaderText("Инструкция:");
