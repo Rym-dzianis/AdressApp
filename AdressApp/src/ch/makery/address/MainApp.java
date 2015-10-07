@@ -2,6 +2,7 @@ package ch.makery.address;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
@@ -12,12 +13,16 @@ import ch.makery.address.alerts.ErrorAlert;
 import ch.makery.address.model.Person;
 import ch.makery.address.model.PersonListWrapper;
 import ch.makery.address.repository.PersonRepository;
+import ch.makery.address.view.BirthdayStatisticsController;
 import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
 import ch.makery.address.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -29,7 +34,6 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	private PersonRepository personRepository = PersonRepository.getInstance();
-
 
 	public MainApp() {
 	}
@@ -43,6 +47,9 @@ public class MainApp extends Application {
 		this.primaryStage.getIcons().add(new Image("file:resources/images/Address_Book_Alt_red.png"));
 
 		initRootLayout();
+
+		this.primaryStage.setOnCloseRequest(e -> exit());
+
 		showPersonOverview();
 	}
 
@@ -155,6 +162,33 @@ public class MainApp extends Application {
 	}
 
 	/**
+	 * Opens a dialog to show birthday statistics.
+	 */
+	public void showBirthdayStatistics() {
+	    try {
+	        // Load the fxml file and create a new stage for the popup.
+	        FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(MainApp.class.getResource("fxml/BirthdayStatistics.fxml"));
+	        AnchorPane page = (AnchorPane) loader.load();
+	        Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Birthday Statistics");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+
+	        // Set the persons into the controller.
+	        BirthdayStatisticsController controller = loader.getController();
+	        controller.setPersonData(personRepository.getPersonList());
+
+	        dialogStage.show();
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	/**
 	 * Returns the main stage.
 	 *
 	 * @return
@@ -178,6 +212,7 @@ public class MainApp extends Application {
 	 * @return
 	 */
 	public File getPersonFilePath() {
+		System.out.println("Взять путь к файлу из контекста");
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 		String filePath = prefs.get("filePath", null);
 		if (filePath != null) {
@@ -209,7 +244,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	//------------------------------------------------------- запись в файл
+	// ------------------------------------------------------- запись в файл
 
 	/**
 	 * Loads person data from the specified file. The current person data will
@@ -247,8 +282,7 @@ public class MainApp extends Application {
 	 */
 	public void savePersonDataToFile(File file) {
 		try {
-			// не может прочитать потому что поля не текст !!!!!!!!!!!!!!
-
+			System.out.println("Сохранение в файл");
 			JAXBContext context = JAXBContext.newInstance(PersonListWrapper.class);
 			Marshaller m = context.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -269,5 +303,22 @@ public class MainApp extends Application {
 			alert.setContentText(e.getMessage());
 			alert.showAndWait();
 		}
+	}
+
+	// ------------------------
+	protected void exit() {
+		System.out.println("Exit");
+		// диалог о закрытии
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Закрытие программы.");
+		alert.setHeaderText("Закрытие программы и сохранение в файл.");
+		alert.setContentText("Вы уверены?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			savePersonDataToFile(getPersonFilePath());
+		} else {
+
+		}
+
 	}
 }

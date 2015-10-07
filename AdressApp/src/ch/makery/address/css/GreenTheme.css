@@ -27,13 +27,12 @@
     -fx-base: #95dd90;
     -fx-control-inner-background: #95dd90;
     -fx-background-color: #95dd90;
-    -fx-table-cell-border-color: transparent;
-    -fx-table-header-border-color: transparent;
     -fx-padding: 5;
 }
 
 .table-view .column-header-background {
     -fx-background-color: transparent;
+    -fx-text-fill: black;
 }
 
 .table-view .column-header, .table-view .filler {
@@ -43,7 +42,7 @@
     -fx-border-color:
         transparent
         transparent
-        derive(-fx-base, 80%)
+        derive(#1d1d1d, 80%)
         transparent;
     -fx-border-insets: 0 10 1 0;
 }
@@ -57,7 +56,7 @@
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+	-fx-background-color: #8d8d8d;
 }
 
 .split-pane:horizontal > .split-pane-divider {
@@ -111,7 +110,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #8a8a8a;
+    -fx-background-color: #e2e2e2;
 }
 
 .button:pressed, .button:default:hover:pressed {

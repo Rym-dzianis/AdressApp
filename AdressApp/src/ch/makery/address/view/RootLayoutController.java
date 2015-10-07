@@ -2,10 +2,12 @@ package ch.makery.address.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.Optional;
 
 import ch.makery.address.MainApp;
 import ch.makery.address.repository.PersonRepository;
@@ -132,7 +134,24 @@ public class RootLayoutController {
 	 */
 	@FXML
 	private void handleExit() {
-		if (handleSave())
-			System.exit(0);
+		System.out.println("Exit");
+		// диалог о закрытии
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Закрытие программы.");
+		alert.setHeaderText("Закрытие программы и сохранение в файл.");
+		alert.setContentText("Вы уверены?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			if (handleSave())
+				System.exit(0);
+		}
+	}
+
+	/**
+	 * Opens the birthday statistics.
+	 */
+	@FXML
+	private void handleShowBirthdayStatistics() {
+	  mainApp.showBirthdayStatistics();
 	}
 }

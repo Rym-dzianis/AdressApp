@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableView.TableViewSelectionModel;
+
 import ch.makery.address.MainApp;
 import ch.makery.address.alerts.NotSelectedAlert;
 import ch.makery.address.model.Person;
@@ -67,6 +68,8 @@ public class PersonOverviewController {
 		// скармливаем интерфейсу лисенера метод showPersonDetails
 		personTable.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> showPersonDetails(newValue));
+
+
 	}
 
 	/**
