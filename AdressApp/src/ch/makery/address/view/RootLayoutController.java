@@ -148,6 +148,27 @@ public class RootLayoutController {
 	}
 
 	/**
+	 * Called when the user clicks on the delete button. Вызывается когда
+	 * пользователь кликает кнопку delete.
+	 */
+	@FXML
+	private void handleDeletePerson() {
+		System.out.println("Delete");
+		mainApp.getPersonOverviewController().handleDeletePerson();
+	}
+
+	/**
+	 * Called when the user clicks the edit button. Opens a dialog to edit
+	 * details for the selected person.
+	 * Вызывается при клике. Открывает окно редактирования.
+	 */
+	@FXML
+	private void handleEditPerson() {
+		System.out.println("Edit");
+		mainApp.getPersonOverviewController().handleEditPerson();
+	}
+
+	/**
 	 * Opens the birthday statistics.
 	 */
 	@FXML

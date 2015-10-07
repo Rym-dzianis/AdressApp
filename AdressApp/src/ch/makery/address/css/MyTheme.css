@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: #95dd90;
+    -fx-background-image: url("../../../../../resources/images/background.jpg");
 }
 
 .label {
@@ -23,10 +23,12 @@
     -fx-opacity: 0.8;
 }
 
+/* table */
+
 .table-view {
-    -fx-base: #95dd90;
-    -fx-control-inner-background: #95dd90;
-    -fx-background-color: #95dd90;
+    -fx-base: #8B8B7A;
+    -fx-control-inner-background: #8B8B7A;
+    -fx-background-color: #8B8B7A;
     -fx-padding: 5;
 }
 
@@ -55,33 +57,77 @@
     -fx-opacity: 1;
 }
 
-.table-view:focused .table-row-cell:filled:focused:selected {
-	-fx-background-color: #8d8d8d;
+/* Selected rows когда только выбрана */
+
+.table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected,
+.tree-table-view:focused > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell:filled:selected,
+.table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell .table-cell:selected,
+.tree-table-view:focused > .virtual-flow > .clipped-container > .sheet > .tree-table-row-cell .tree-table-cell:selected {
+    -fx-background: -fx-selection-bar-non-focused;
 }
+
+/* Selected when control is not focused  когда открыта*/
+
+.table-row-cell:filled:selected,
+.tree-table-row-cell:filled:selected,
+.table-row-cell:filled > .table-cell:selected,
+.tree-table-row-cell:filled > .tree-table-cell:selected {
+    -fx-background: -fx-selection-bar-non-focused;
+    -fx-table-cell-border-color: transparent;
+}
+
+
+
+
+/* pane */
 
 .split-pane:horizontal > .split-pane-divider {
     -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#95dd90,20%);
+    -fx-background-color: transparent, #8B8B7A;
 }
 
 .split-pane {
     -fx-padding: 1 0 0 0;
 }
 
-.menu-bar {
-    -fx-background-color: derive(#95dd90,10%);
-}
+/* menu-bar */
 
-.context-menu {
-    -fx-background-color: derive(#95dd90,60%);
+.menu-bar {
+    -fx-background-color: #8B8B7A;
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: #1d1d1d;
+    -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
+
+.menu-bar > .container > .menu-button:hover,
+.menu-bar > .container > .menu-button:focused,
+.menu-bar > .container > .menu-button:showing {
+    -fx-background: derive(#8B8B7A,20%);
+}
+
+/* context-menu */
+
+.context-menu {
+    -fx-background-color: derive(#8B8B7A,20%)
+}
+
+.context-menu > .container > .menu-button:hover,
+.context-menu > .container > .menu-button:focused,
+.context-menu > .container > .menu-button:showing {
+	-fx-background: derive(#8B8B7A,20%);
+}
+
+.menu-item:hover,
+.menu-item:focused,
+.menu-item:showing {
+    -fx-background-color: derive(#8B8B7A,40%);
+}
+
+/* ------------------------ */
 
 .menu .left-container {
     -fx-background-color: black;
@@ -92,17 +138,12 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
-/*
- * Metro style Push Button
- * Author: Pedro Duque Vieira
- * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
- */
 .button {
     -fx-padding: 5 22 5 22;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #95dd90;
+    -fx-background-color: #8B8B7A;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #1d1d1d;
@@ -115,7 +156,6 @@
 
 .button:pressed, .button:default:hover:pressed {
   -fx-background-color: white;
-  -fx-text-fill: #95dd90;
 }
 
 .button:focused {
@@ -128,15 +168,15 @@
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #95dd90;
     -fx-text-fill: #1d1d1d;
 }
 
 .button:default {
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color: #4F4F4F;
     -fx-text-fill: #ffffff;
 }
 
 .button:default:hover {
-    -fx-background-color: derive(-fx-focus-color,30%);
+    -fx-background-color: #e2e2e2;
+    -fx-text-fill: #1d1d1d;
 }

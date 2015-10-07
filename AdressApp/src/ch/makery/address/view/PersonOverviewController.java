@@ -116,7 +116,7 @@ public class PersonOverviewController {
 	 * пользователь кликает кнопку delete.
 	 */
 	@FXML
-	private void handleDeletePerson() {
+	public void handleDeletePerson() {
 		TableViewSelectionModel<Person> selectionModel = personTable.getSelectionModel();
 		// удаление не по индексу а по объекту !!!
 		boolean deletingResult = personTable.getItems().remove(selectionModel.getSelectedItem());
@@ -149,7 +149,7 @@ public class PersonOverviewController {
 	 * Вызывается при клике. Открывает окно редактирования.
 	 */
 	@FXML
-	private void handleEditPerson() {
+	public void handleEditPerson() {
 		Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
 		if (selectedPerson != null) {
 			boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);

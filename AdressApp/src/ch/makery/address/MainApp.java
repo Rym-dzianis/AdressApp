@@ -35,6 +35,8 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	private PersonRepository personRepository = PersonRepository.getInstance();
 
+	private PersonOverviewController personOverviewController;
+
 	public MainApp() {
 	}
 
@@ -98,8 +100,9 @@ public class MainApp extends Application {
 			rootLayout.setCenter(personOverview);
 
 			// ƒать доступ контроллеру к этому классу (MainApp).
-			PersonOverviewController controller = loader.getController();
-			controller.setMainApp(this);
+//			PersonOverviewController controller = loader.getController();
+			personOverviewController = loader.getController();
+			personOverviewController.setMainApp(this);
 
 			File file = getPersonFilePath();
 			loadPersonDataFromFile(file);
@@ -186,6 +189,10 @@ public class MainApp extends Application {
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
+	}
+
+	public PersonOverviewController getPersonOverviewController() {
+		return personOverviewController;
 	}
 
 	/**
