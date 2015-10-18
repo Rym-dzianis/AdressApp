@@ -28,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class MainApp extends Application {
 
@@ -50,7 +51,7 @@ public class MainApp extends Application {
 
 		initRootLayout();
 
-		this.primaryStage.setOnCloseRequest(e -> exit());
+		this.primaryStage.setOnCloseRequest(event -> beforeExit(event));
 
 		showPersonOverview();
 	}
@@ -312,8 +313,12 @@ public class MainApp extends Application {
 		}
 	}
 
-	// ------------------------
-	protected void exit() {
+	/**
+	 * Dialog before exit
+	 *
+	 * @param event
+	 */
+	protected void beforeExit(WindowEvent event) {
 		System.out.println("Exit");
 		// диалог о закрытии
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -324,7 +329,7 @@ public class MainApp extends Application {
 		if (result.get() == ButtonType.OK) {
 			savePersonDataToFile(getPersonFilePath());
 		} else {
-
+			event.consume();
 		}
 
 	}
